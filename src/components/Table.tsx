@@ -4,5 +4,5 @@ import styles from './styles.module.css'
 interface Props {}
 
 export const Table = ({}: Props) => {
-  return <div className={styles.table}></div>
+  return <div className={styles.table}>Table v1</div>
 }
