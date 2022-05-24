@@ -4,7 +4,7 @@ import { Table } from 'react-rapid-table'
 import 'react-rapid-table/dist/index.css'
 
 const App = () => {
-  return <Table text='Create React 😄' />
+  return <Table />
 }
 
 export default App

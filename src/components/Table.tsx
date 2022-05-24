@@ -1,10 +1,8 @@
 import * as React from 'react'
 import styles from './styles.module.css'
 
-interface Props {
-  text: string
-}
+interface Props {}
 
-export const Table = ({ text }: Props) => {
+export const Table = ({}: Props) => {
   return <div className={styles.table}></div>
 }
