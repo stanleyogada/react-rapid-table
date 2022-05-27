@@ -14,7 +14,14 @@ const Rows: React.FC<TRows> = ({ data, columns, rowsOptions }) => {
       {data.map((row, index) => (
         <div key={row.id} data-testid='row'>
           {rowsOptions?.showNumbers && (
-            <Cell text={index + 1} testId='cell-number' />
+            <Cell
+              text={
+                typeof rowsOptions.showNumbers === 'function'
+                  ? rowsOptions.showNumbers(index + 1)
+                  : index + 1
+              }
+              testId='cell-number'
+            />
           )}
 
           {columns.map(({ id, renderCell }) => (

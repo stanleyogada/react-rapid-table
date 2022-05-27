@@ -47,9 +47,7 @@ describe('Rows component', () => {
       const props = {
         data: [
           { id: 1, name: 'test' },
-          { id: 2, name: 'some' },
-          { id: 3, name: 'more' },
-          { id: 4, name: 'cases' }
+          { id: 2, name: 'some' }
         ],
         columns: [{ id: 'name' }],
         rowsOptions
@@ -59,16 +57,6 @@ describe('Rows component', () => {
     }
 
     describe('showNumber', () => {
-      test('When passed: renders number option', () => {
-        const screen = setup({ showNumbers: true })
-
-        expect(screen.getAllByTestId('cell-number').length).toBe(4)
-        expect(screen.getAllByTestId('cell-number')[0]).toHaveTextContent('1')
-        expect(screen.getAllByTestId('cell-number')[1]).toHaveTextContent('2')
-        expect(screen.getAllByTestId('cell-number')[2]).toHaveTextContent('3')
-        expect(screen.getAllByTestId('cell-number')[3]).toHaveTextContent('4')
-      })
-
       test('When `NOT passed`, or is `undefined` or any falsy value: renders number option', () => {
         let screen = setup({ showNumbers: undefined })
         expect(screen.queryAllByTestId('cell-number').length).toBe(0)
@@ -80,6 +68,33 @@ describe('Rows component', () => {
         cleanup()
         screen = setup({})
         expect(screen.queryAllByTestId('cell-number').length).toBe(0)
+      })
+
+      test('When passed: renders number option', () => {
+        const screen = setup({ showNumbers: true })
+
+        expect(screen.getAllByTestId('cell-number').length).toBe(2)
+        expect(screen.getAllByTestId('cell-number')[0]).toHaveTextContent('1')
+        expect(screen.getAllByTestId('cell-number')[1]).toHaveTextContent('2')
+        expect(screen.queryByText('3')).not.toBeInTheDocument()
+        expect(screen.queryByText('4')).not.toBeInTheDocument()
+      })
+
+      test('When passed: renders number option', () => {
+        let screen = setup({
+          showNumbers: (rowNumber: number) => `#${rowNumber}`
+        })
+
+        expect(screen.getAllByTestId('cell-number')[0]).toHaveTextContent('#1')
+        expect(screen.getAllByTestId('cell-number')[1]).toHaveTextContent('#2')
+
+        // Assert to make sure we can render `number` as `any` thing
+        cleanup()
+        screen = setup({
+          showNumbers: () => <p>S/N</p>
+        })
+        expect(screen.getAllByTestId('cell-number')[0]).toHaveTextContent('S/N')
+        expect(screen.getAllByTestId('cell-number')[1]).toHaveTextContent('S/N')
       })
     })
   })

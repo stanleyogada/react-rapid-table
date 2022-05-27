@@ -8,5 +8,5 @@ export type TRow = {
 }
 
 export type TRowsOptions = {
-  showNumbers?: boolean
+  showNumbers?: boolean | ((rowsNumber: number) => any)
 }
