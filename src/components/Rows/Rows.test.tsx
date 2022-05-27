@@ -1,7 +1,8 @@
 import * as React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
-import Rows, { TRowsOptions } from './Rows'
+import { render, cleanup } from '@testing-library/react'
+import Rows from './Rows'
+import { TRowsOptions } from '../types'
 
 describe('Rows component', () => {
   test('renders rows and cells correctly', () => {
@@ -42,7 +43,7 @@ describe('Rows component', () => {
   })
 
   describe('When options prop is passed', () => {
-    const setup = (options: TRowsOptions) => {
+    const setup = (rowsOptions: TRowsOptions) => {
       const props = {
         data: [
           { id: 1, name: 'test' },
@@ -51,20 +52,35 @@ describe('Rows component', () => {
           { id: 4, name: 'cases' }
         ],
         columns: [{ id: 'name' }],
-        options
+        rowsOptions
       }
 
       return render(<Rows {...props} />)
     }
 
-    test('renders number option', () => {
-      const screen = setup({ showNumbers: true })
+    describe('showNumber', () => {
+      test('When passed: renders number option', () => {
+        const screen = setup({ showNumbers: true })
 
-      expect(screen.getAllByTestId('cell-number').length).toBe(4)
-      expect(screen.getAllByTestId('cell-number')[0]).toHaveTextContent('1')
-      expect(screen.getAllByTestId('cell-number')[1]).toHaveTextContent('2')
-      expect(screen.getAllByTestId('cell-number')[2]).toHaveTextContent('3')
-      expect(screen.getAllByTestId('cell-number')[3]).toHaveTextContent('4')
+        expect(screen.getAllByTestId('cell-number').length).toBe(4)
+        expect(screen.getAllByTestId('cell-number')[0]).toHaveTextContent('1')
+        expect(screen.getAllByTestId('cell-number')[1]).toHaveTextContent('2')
+        expect(screen.getAllByTestId('cell-number')[2]).toHaveTextContent('3')
+        expect(screen.getAllByTestId('cell-number')[3]).toHaveTextContent('4')
+      })
+
+      test('When `NOT passed`, or is `undefined` or any falsy value: renders number option', () => {
+        let screen = setup({ showNumbers: undefined })
+        expect(screen.queryAllByTestId('cell-number').length).toBe(0)
+
+        cleanup()
+        screen = setup({ showNumbers: false })
+        expect(screen.queryAllByTestId('cell-number').length).toBe(0)
+
+        cleanup()
+        screen = setup({})
+        expect(screen.queryAllByTestId('cell-number').length).toBe(0)
+      })
     })
   })
 })
