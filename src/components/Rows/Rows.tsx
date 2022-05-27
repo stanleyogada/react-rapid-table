@@ -1,23 +1,27 @@
 import * as React from 'react'
+import Cell from '../Cell/Cell'
 
-interface Props {
+interface TRows {
   data: {
+    id: number | string
     [key: string]: any
   }[]
   columns: {
-    id: string
+    id: number | string
+    renderCell?: (cellData: any) => React.ReactNode | string
   }[]
 }
 
-const Rows: React.FC<Props> = ({ data, columns }) => {
+const Rows: React.FC<TRows> = ({ data, columns }) => {
   return (
     <div>
-      {data.map((row, index) => (
-        <div key={index} data-testid='row'>
-          {columns.map(({ id }) => (
-            <div key={id} data-testid='cell'>
-              {row[id]}
-            </div>
+      {data.map((row) => (
+        <div key={row.id} data-testid='row'>
+          {columns.map(({ id, renderCell }) => (
+            <Cell
+              key={`${row.id}-${id}`}
+              text={renderCell ? () => renderCell(row[id]) : row[id]}
+            />
           ))}
         </div>
       ))}

@@ -1,11 +1,13 @@
 import * as React from 'react'
 
-interface Props {
+interface TCell {
   text: string | React.ReactNode | (() => React.ReactNode | string)
 }
 
-const Cell: React.FC<Props> = ({ text }) => {
-  return <div>{typeof text === 'function' ? text() : text}</div>
+const Cell: React.FC<TCell> = ({ text }) => {
+  return (
+    <div data-testid='cell'>{typeof text === 'function' ? text() : text}</div>
+  )
 }
 
 export default Cell
