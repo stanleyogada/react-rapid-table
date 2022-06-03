@@ -9,4 +9,16 @@ export type TRow = {
 
 export type TRowsOptions = {
   showNumbers?: boolean | ((rowsNumber: number) => any)
+  renderError?: (error: any) => any
+  renderLoading?: () => any
+}
+
+export interface TTable {
+  rows: {
+    data?: TRow[] | null
+    isLoading?: boolean
+    error?: any // Any type can be trown as error
+    options?: TRowsOptions
+  }
+  columns: TColumn[]
 }

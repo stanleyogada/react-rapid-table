@@ -11,7 +11,11 @@ const THead: React.FC<TTHead> = ({ columns }) => {
 
   columns.forEach(({ id }) => (rowsData[0] = { ...rowsData[0], [id]: id }))
 
-  return <Rows data={rowsData} columns={columns} />
+  return (
+    <div data-testid='thead'>
+      <Rows data={rowsData} columns={columns} />
+    </div>
+  )
 }
 
 export default THead
