@@ -6,7 +6,7 @@ import { TTable } from './types'
 
 export const Table = ({ columns, rows }: TTable) => {
   return (
-    <>
+    <React.Fragment>
       {rows.data && (
         <div className={styles.table} data-testid='table'>
           <THead columns={columns} />
@@ -24,6 +24,6 @@ export const Table = ({ columns, rows }: TTable) => {
       {rows.error && (
         <div data-testid='error'>{rows.options?.renderError?.(rows.error)}</div>
       )}
-    </>
+    </React.Fragment>
   )
 }
