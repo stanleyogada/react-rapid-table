@@ -117,5 +117,14 @@ describe('Table component', () => {
     expect(renderError).toHaveBeenCalledWith(new Error('test err!'))
     expect(renderError).not.toHaveBeenCalledWith(true)
     expect(renderError).not.toHaveBeenCalledWith(2)
+
+    // Test when no render functions are provided as props
+    cleanup()
+    renderLoading = jest.fn()
+    renderError = jest.fn()
+    setUp({ rowsIsLoading: true, rowsError: true, rowsOptions: {} })
+
+    expect(renderLoading).not.toHaveBeenCalled()
+    expect(renderError).not.toHaveBeenCalled()
   })
 })
