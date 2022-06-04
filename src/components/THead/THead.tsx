@@ -9,10 +9,10 @@ interface TTHead {
 const THead: React.FC<TTHead> = ({ columns }) => {
   const rowsData: TRow[] = [{ id: 1 }]
 
-  columns = columns.map(({ id }) => {
-    rowsData[0] = { ...rowsData[0], [id]: id }
+  columns = columns.map((col) => {
+    rowsData[0] = { ...rowsData[0], [col.id]: col.id }
 
-    return { id }
+    return { ...col, renderCell: undefined }
   })
 
   return (

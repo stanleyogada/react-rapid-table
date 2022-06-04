@@ -6,6 +6,8 @@ export type TCell = {
 export type TColumn = {
   id: number | string
   renderCell?: (cellData: any) => React.ReactNode | string
+  minFractionOrWidth?: string
+  maxFractionOrWidth?: string
 }
 
 export type TRow = {

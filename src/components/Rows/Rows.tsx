@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Cell from '../Cell/Cell'
 import { TColumn, TRow, TRowsOptions } from '../../types'
+import styles from '../styles.module.css'
 
 interface TRows {
   data: TRow[]
@@ -9,10 +10,25 @@ interface TRows {
 }
 
 const Rows: React.FC<TRows> = ({ data, columns, rowsOptions }) => {
+  const hardcoded_Style = {
+    gridTemplateColumns: `${columns.reduce(
+      (acc, col) =>
+        `minmax(${col.minFractionOrWidth || '200px'}, ${
+          col.maxFractionOrWidth || '1fr'
+        }) ` + acc,
+      ''
+    )}`
+  }
+
   return (
-    <div>
+    <React.Fragment>
       {data.map((row, index) => (
-        <div key={row.id} data-testid='row'>
+        <div
+          key={row.id}
+          data-testid='row'
+          className={styles.row}
+          style={hardcoded_Style}
+        >
           {rowsOptions?.showNumbers && (
             <Cell
               text={
@@ -33,7 +49,7 @@ const Rows: React.FC<TRows> = ({ data, columns, rowsOptions }) => {
           ))}
         </div>
       ))}
-    </div>
+    </React.Fragment>
   )
 }
 

@@ -2,6 +2,7 @@ export type TUser = {
   id: string
   name: string
   username: string
+  email: string
 }
 
 export const getAllUsers = async (x?: any, y?: any): Promise<TUser[]> => {

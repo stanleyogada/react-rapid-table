@@ -9,11 +9,12 @@ const App = () => {
   React.useEffect(() => {
     handleGetRowsData(getAllUsers, {
       fetcherArgs: [1, 10],
-      dataMapper: (data: TUser[]) =>
+      dataMapper: (data) =>
         data.map((user) => ({
           id: user.id,
           name: `(${user.username}) ${user.name}`,
-          username: user.username
+          username: user.username,
+          email: user.email
         }))
     })
   }, [handleGetRowsData])
@@ -22,7 +23,19 @@ const App = () => {
     <div>
       <Table
         columns={[
-          { id: 'name', renderCell: (name: string) => <h2>{name}</h2> }
+          {
+            id: 'name',
+            renderCell: (name: string) => <h2>{name}</h2>
+          },
+          {
+            id: 'username',
+            minFractionOrWidth: '100px',
+            maxFractionOrWidth: '.7fr'
+          },
+          {
+            id: 'email',
+            maxFractionOrWidth: '2fr'
+          }
         ]}
         rows={rows}
         rowsOptions={{
