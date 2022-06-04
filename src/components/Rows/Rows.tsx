@@ -11,14 +11,19 @@ interface TRows {
 
 const Rows: React.FC<TRows> = ({ data, columns, rowsOptions }) => {
   const hardcoded_Style = {
-    gridTemplateColumns: `${columns.reduce(
-      (acc, col) =>
-        `minmax(${col.minFractionOrWidth || '200px'}, ${
+    gridTemplateColumns: `${columns.reduce((acc, col) => {
+      console.log(col.maxFractionOrWidth)
+
+      return (
+        acc +
+        ` minmax(${col.minFractionOrWidth || '200px'}, ${
           col.maxFractionOrWidth || '1fr'
-        }) ` + acc,
-      ''
-    )}`
+        })`
+      )
+    }, '')}`
   }
+
+  console.log(hardcoded_Style)
 
   return (
     <React.Fragment>
