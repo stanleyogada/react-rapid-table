@@ -4,9 +4,9 @@ import styles from './styles.module.css'
 import THead from './THead/THead'
 import { TTable } from '../types'
 
-export const Table = ({ columns, rows, rowsOptions }: TTable) => {
+export const Table = ({ id, columns, rows, rowsOptions }: TTable) => {
   return (
-    <React.Fragment>
+    <div id={id}>
       {rows.data && (
         <div className={styles.table} data-testid='table'>
           <THead columns={columns} />
@@ -24,6 +24,6 @@ export const Table = ({ columns, rows, rowsOptions }: TTable) => {
       {rows.error && (
         <div data-testid='error'>{rowsOptions?.renderError?.(rows.error)}</div>
       )}
-    </React.Fragment>
+    </div>
   )
 }

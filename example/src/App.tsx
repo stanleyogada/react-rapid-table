@@ -22,11 +22,12 @@ const App = () => {
   return (
     <div>
       <Table
+        id='table-1'
         columns={[
           {
             id: 'name',
             renderCell: (name: string) => <h2>{name}</h2>,
-            minFractionOrWidth: '350px'
+            minFractionOrWidth: '2000px'
           },
           {
             id: 'username',

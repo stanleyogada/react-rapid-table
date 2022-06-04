@@ -27,6 +27,7 @@ export interface TTableRows {
   error?: any // Any type can be thrown as error
 }
 export interface TTable {
+  id?: string
   rows: TTableRows
   columns: TColumn[]
   rowsOptions?: TRowsOptions

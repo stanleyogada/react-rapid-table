@@ -1,10 +1,20 @@
 /* add css module styles here (optional) */
 
+.table * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .table {
-  border: 2px solid #000;
+  border: 3px solid #000;
+  overflow-x: scroll;
 }
 
 .row {
-  border: 2px solid red;
   display: grid;
+}
+
+.row [data-testid='cell'] {
+  border: 1px solid rgba(0, 0, 0, 0.088);
 }
