@@ -2,7 +2,7 @@ import * as React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, cleanup } from '@testing-library/react'
 import Rows from './Rows'
-import { TRowsOptions } from '../types'
+import { TRowsOptions } from '../../types'
 
 describe('Rows component', () => {
   test('renders rows and cells correctly', () => {

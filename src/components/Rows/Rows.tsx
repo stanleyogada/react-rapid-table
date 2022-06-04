@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Cell from '../Cell/Cell'
-import { TColumn, TRow, TRowsOptions } from '../types'
+import { TColumn, TRow, TRowsOptions } from '../../types'
 
 interface TRows {
   data: TRow[]

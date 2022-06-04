@@ -2,7 +2,7 @@ import * as React from 'react'
 import Rows from './Rows/Rows'
 import styles from './styles.module.css'
 import THead from './THead/THead'
-import { TTable } from './types'
+import { TTable } from '../types'
 
 export const Table = ({ columns, rows }: TTable) => {
   return (

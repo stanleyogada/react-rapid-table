@@ -2,7 +2,7 @@ import * as React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { cleanup, render } from '@testing-library/react'
 import { Table } from './Table'
-import { TRow, TRowsOptions, TTable } from './types'
+import { TRow, TRowsOptions, TTable } from '../types'
 
 const setUp = (options?: {
   rowsOptions?: TRowsOptions

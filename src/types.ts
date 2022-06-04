@@ -13,12 +13,13 @@ export type TRowsOptions = {
   renderLoading?: () => any
 }
 
+export interface TTableRows {
+  data?: TRow[] | null
+  isLoading?: boolean
+  error?: any // Any type can be trown as error
+  options?: TRowsOptions
+}
 export interface TTable {
-  rows: {
-    data?: TRow[] | null
-    isLoading?: boolean
-    error?: any // Any type can be trown as error
-    options?: TRowsOptions
-  }
+  rows: TTableRows
   columns: TColumn[]
 }

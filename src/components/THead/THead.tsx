@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Rows from '../Rows/Rows'
-import { TColumn, TRow } from '../types'
+import { TColumn, TRow } from '../../types'
 
 interface TTHead {
   columns: TColumn[]
