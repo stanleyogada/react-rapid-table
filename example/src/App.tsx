@@ -6,18 +6,24 @@ import { getAllUsers, TUser } from './services/user'
 const App = () => {
   const { rows, handleGetRowsData } = useRows<TUser>()
 
+  const onGetRowsData = React.useCallback(
+    () =>
+      handleGetRowsData(getAllUsers, {
+        fetcherArgs: [1, 10],
+        dataMapper: (data) =>
+          data.map((user) => ({
+            id: user.id,
+            name: `(${user.username}) ${user.name}`,
+            username: user.username,
+            email: user.email
+          }))
+      }),
+    [handleGetRowsData]
+  )
+
   React.useEffect(() => {
-    handleGetRowsData(getAllUsers, {
-      fetcherArgs: [1, 10],
-      dataMapper: (data) =>
-        data.map((user) => ({
-          id: user.id,
-          name: `(${user.username}) ${user.name}`,
-          username: user.username,
-          email: user.email
-        }))
-    })
-  }, [handleGetRowsData])
+    onGetRowsData()
+  }, [onGetRowsData])
 
   return (
     <div>
@@ -42,7 +48,12 @@ const App = () => {
         rows={rows}
         rowsOptions={{
           renderLoading: () => <div>Loading...</div>,
-          renderError: (error: Error) => <div>Error: {error.message}</div>
+          renderError: (error: Error) => (
+            <div>
+              Error: {error.message}{' '}
+              <button onClick={onGetRowsData}>Try again</button>
+            </div>
+          )
         }}
       />
     </div>
