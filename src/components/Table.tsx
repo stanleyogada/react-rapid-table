@@ -4,7 +4,7 @@ import styles from './styles.module.css'
 import THead from './THead/THead'
 import { TTable } from '../types'
 
-export const Table = ({ columns, rows }: TTable) => {
+export const Table = ({ columns, rows, rowsOptions }: TTable) => {
   return (
     <React.Fragment>
       {rows.data && (
@@ -18,11 +18,11 @@ export const Table = ({ columns, rows }: TTable) => {
       )}
 
       {rows.isLoading && (
-        <div data-testid='loading'>{rows.options?.renderLoading?.()}</div>
+        <div data-testid='loading'>{rowsOptions?.renderLoading?.()}</div>
       )}
 
       {rows.error && (
-        <div data-testid='error'>{rows.options?.renderError?.(rows.error)}</div>
+        <div data-testid='error'>{rowsOptions?.renderError?.(rows.error)}</div>
       )}
     </React.Fragment>
   )

@@ -21,10 +21,10 @@ const setUp = (options?: {
               { id: 3, name: 'test' }
             ],
       isLoading: options?.rowsIsLoading,
-      error: options?.rowsError,
-      options: options?.rowsOptions
+      error: options?.rowsError
     },
-    columns: [{ id: 'name' }]
+    columns: [{ id: 'name' }],
+    rowsOptions: options?.rowsOptions
   }
 
   return render(<Table {...props} />)

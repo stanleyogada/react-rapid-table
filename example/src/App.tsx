@@ -15,11 +15,10 @@ const App = () => {
     <Table
       columns={[{ id: 'name' }]}
       rows={rows}
-
-      // rowsOptions={{
-      //   renderLoading: () => <div>Loading...</div>,
-      //   renderError: (error: Error) => <div>Error: {error.message}</div>
-      // }}
+      rowsOptions={{
+        renderLoading: () => <div>Loading...</div>,
+        renderError: (error: Error) => <div>Error: {error.message}</div>
+      }}
     />
   )
 }

@@ -16,10 +16,10 @@ export type TRowsOptions = {
 export interface TTableRows {
   data?: TRow[] | null
   isLoading?: boolean
-  error?: any // Any type can be trown as error
-  options?: TRowsOptions
+  error?: any // Any type can be thrown as error
 }
 export interface TTable {
   rows: TTableRows
   columns: TColumn[]
+  rowsOptions?: TRowsOptions
 }
