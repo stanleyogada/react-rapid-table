@@ -9,7 +9,11 @@ interface TTHead {
 const THead: React.FC<TTHead> = ({ columns }) => {
   const rowsData: TRow[] = [{ id: 1 }]
 
-  columns.forEach(({ id }) => (rowsData[0] = { ...rowsData[0], [id]: id }))
+  columns = columns.map(({ id }) => {
+    rowsData[0] = { ...rowsData[0], [id]: id }
+
+    return { id }
+  })
 
   return (
     <div data-testid='thead'>
