@@ -1,7 +1,13 @@
+export type TCell = {
+  text: string | React.ReactNode | (() => React.ReactNode | string)
+  testId?: string
+}
+
 export type TColumn = {
   id: number | string
   renderCell?: (cellData: any) => React.ReactNode | string
 }
+
 export type TRow = {
   id: number | string
   [key: string]: any

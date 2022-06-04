@@ -16,9 +16,9 @@ const setUp = (options?: {
         options?.rowsData !== undefined
           ? options.rowsData
           : [
-              { id: 1, name: 'test' },
-              { id: 2, name: 'test' },
-              { id: 3, name: 'test' }
+              { id: '1', name: 'test' },
+              { id: '2', name: 'test' },
+              { id: '3', name: 'test' }
             ],
       isLoading: options?.rowsIsLoading,
       error: options?.rowsError
@@ -70,7 +70,7 @@ describe('Table component', () => {
     cleanup()
     screen = setUp({
       rowsIsLoading: true,
-      rowsData: [{ id: 1 }],
+      rowsData: [{ id: '1', name: 'test' }],
       rowsError: new Error('test err!')
     })
     expect(screen.getByTestId('loading')).toBeInTheDocument()

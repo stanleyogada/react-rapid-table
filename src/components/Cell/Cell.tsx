@@ -1,9 +1,5 @@
 import * as React from 'react'
-
-interface TCell {
-  text: string | React.ReactNode | (() => React.ReactNode | string)
-  testId?: string
-}
+import { TCell } from '../../types'
 
 const Cell: React.FC<TCell> = ({ text, testId }) => {
   return (

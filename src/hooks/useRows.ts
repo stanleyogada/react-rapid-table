@@ -1,23 +1,29 @@
-import { TTableRows } from './../types'
+import { TRow, TTableRows } from './../types'
 import * as React from 'react'
 
-export const useRows = (): {
+export const useRows = <TResource extends TRow>(): {
   rows: TTableRows
   handleGetRowsData: (
-    fetcher: (...args: any[]) => any,
-    options?: { fetcherArgs?: any[]; dataMapper?: (data: any[]) => any[] }
+    fetcher: (...args: any[]) => Promise<TResource[]>,
+    options?: {
+      fetcherArgs?: any[]
+      dataMapper?: (data: TResource[]) => TResource[]
+    }
   ) => void
 } => {
   const [rows, setRows] = React.useState<TTableRows>({
-    data: [{ id: '1', name: 'John', age: '20' }],
+    data: null,
     isLoading: false,
     error: null
   })
 
   const handleGetRowsData = React.useCallback(
     async (
-      fetcher: (...args: any[]) => any,
-      options?: { fetcherArgs?: any[]; dataMapper?: (data: any[]) => any[] }
+      fetcher: (...args: any[]) => Promise<TResource[]>,
+      options?: {
+        fetcherArgs?: any[]
+        dataMapper?: (data: TResource[]) => TResource[]
+      }
     ) => {
       try {
         setRows((rows) => ({ ...rows, isLoading: true, error: null }))
