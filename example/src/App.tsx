@@ -32,12 +32,12 @@ const App = () => {
         columns={[
           {
             id: 'name',
-            renderCell: (name: string) => <h2>{name}</h2>,
-            minFractionOrWidth: '2000px'
+            renderCell: (name: string) => <h2>{name}</h2>
+            // minFractionOrWidth: '2000px'
           },
           {
             id: 'username',
-            minFractionOrWidth: '150px',
+            // minFractionOrWidth: '150px',
             maxFractionOrWidth: '.8fr'
           },
           {
