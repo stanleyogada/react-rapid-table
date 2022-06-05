@@ -9,7 +9,7 @@
 
 .table {
   border: 3px solid #000;
-  overflow-x: scroll;
+  overflow-x: auto;
   width: auto;
 }
 

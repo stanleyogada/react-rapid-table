@@ -12,7 +12,8 @@ interface TRows {
 const Rows: React.FC<TRows> = ({ data, columns, rowsOptions }) => {
   const hardcoded_Style = {
     gridTemplateColumns: `${columns.reduce((acc, col) => {
-      const columnMinFractionOrWidth = col.minFractionOrWidth || '200px'
+      const columnMinFractionOrWidth =
+        col.minFractionOrWidth || 100 / columns.length + '%'
       const columnMaxFractionOrWidth = col.maxFractionOrWidth || '1fr'
 
       return (
