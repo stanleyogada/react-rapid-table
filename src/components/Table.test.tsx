@@ -1,6 +1,7 @@
 import * as React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { cleanup, render } from '@testing-library/react'
+import user from '@testing-library/user-event'
 import { Table } from './Table'
 import { TRow, TRowsOptions, TTable } from '../types'
 
@@ -16,14 +17,14 @@ const setUp = (options?: {
         options?.rowsData !== undefined
           ? options.rowsData
           : [
-              { id: '1', name: 'test' },
-              { id: '2', name: 'test' },
-              { id: '3', name: 'test' }
+              { id: '1', name: 'beca', age: 10 },
+              { id: '2', name: 'adam', age: 30 },
+              { id: '3', name: 'cup', age: 3 }
             ],
       isLoading: options?.rowsIsLoading,
       error: options?.rowsError
     },
-    columns: [{ id: 'name' }],
+    columns: [{ id: 'name' }, { id: 'age' }],
     rowsOptions: options?.rowsOptions
   }
 
@@ -40,7 +41,7 @@ describe('Table component', () => {
     expect(screen.getAllByTestId('row').length).toBe(4)
   })
 
-  test('ensures all states (`loading`, `error` and `data`) remders without interception eachother', () => {
+  test('ensures all states (`loading`, `error` and `data`) renders without interception each other', () => {
     let screen = setUp({
       rowsIsLoading: true,
       rowsError: new Error('test err!')
@@ -102,7 +103,7 @@ describe('Table component', () => {
     renderError = jest.fn()
     setUp({
       rowsIsLoading: false,
-      rowsError: new Error('test err!'), // Any type can be trown as error
+      rowsError: new Error('test err!'), // Any type can be thrown as error
       rowsOptions: {
         renderLoading,
         renderError
@@ -126,5 +127,35 @@ describe('Table component', () => {
 
     expect(renderLoading).not.toHaveBeenCalled()
     expect(renderError).not.toHaveBeenCalled()
+  })
+
+  test('ensure sorts by column correctly', async () => {
+    const screen = setUp()
+    const thead = screen.getByTestId('thead')
+    const name_theadColumnCell = thead.querySelectorAll(
+      '[data-testid="cell"]'
+    )[0]
+    const age_theadColumnCell = thead.querySelectorAll(
+      '[data-testid="cell"]'
+    )[1]
+
+    expect(name_theadColumnCell).not.toHaveTextContent(/sortBy:name-default/i)
+    user.click(name_theadColumnCell)
+    screen.debug() //?
+    expect(name_theadColumnCell).toHaveTextContent(/sortBy:name-asc/i)
+    user.click(name_theadColumnCell)
+
+    expect(name_theadColumnCell).toHaveTextContent(/sortBy:name-desc/i)
+    user.click(name_theadColumnCell)
+    expect(name_theadColumnCell).toHaveTextContent(/sortBy:name-default/i)
+
+    expect(age_theadColumnCell).not.toHaveTextContent(/sortBy:age-default/i)
+    user.click(age_theadColumnCell)
+    expect(age_theadColumnCell).toHaveTextContent(/sortBy:age-asc/i)
+    expect(name_theadColumnCell).not.toHaveTextContent(/sortBy:name-default/i)
+    user.click(age_theadColumnCell)
+    expect(age_theadColumnCell).toHaveTextContent(/sortBy:age-desc/i)
+    user.click(age_theadColumnCell)
+    expect(age_theadColumnCell).toHaveTextContent(/sortBy:age-default/i)
   })
 })

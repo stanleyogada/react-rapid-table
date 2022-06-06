@@ -7,9 +7,10 @@ interface TRows {
   data: TRow[]
   columns: TColumn[]
   rowsOptions?: TRowsOptions
+  onCellClick?: (id: string | number) => void
 }
 
-const Rows: React.FC<TRows> = ({ data, columns, rowsOptions }) => {
+const Rows: React.FC<TRows> = ({ data, columns, rowsOptions, onCellClick }) => {
   const hardcoded_Style = {
     gridTemplateColumns: `${columns.reduce((acc, col) => {
       const columnMinFractionOrWidth =
@@ -48,6 +49,7 @@ const Rows: React.FC<TRows> = ({ data, columns, rowsOptions }) => {
               key={`${row.id}-${id}`}
               text={renderCell ? () => renderCell(row[id]) : row[id]}
               testId='cell'
+              onClick={onCellClick?.bind(null, id)}
             />
           ))}
         </div>

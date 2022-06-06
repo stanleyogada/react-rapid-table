@@ -1,6 +1,7 @@
 export type TCell = {
   text: string | React.ReactNode | (() => React.ReactNode | string)
   testId?: string
+  onClick?: (id: number | string) => void
 }
 
 export type TColumn = {
@@ -31,4 +32,9 @@ export interface TTable {
   rows: TTableRows
   columns: TColumn[]
   rowsOptions?: TRowsOptions
+}
+
+export type TSortByTHeadColumnId = {
+  id?: string | number | null
+  direction: 'asc' | 'desc' | null
 }

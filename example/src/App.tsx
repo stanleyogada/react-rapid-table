@@ -25,8 +25,11 @@ const App = () => {
     onGetRowsData()
   }, [onGetRowsData])
 
+  console.log(rows)
+
   return (
     <div>
+      {/* {rows.data && ( */}
       <Table
         id='table-1'
         columns={[
@@ -54,6 +57,19 @@ const App = () => {
               <button onClick={onGetRowsData}>Try again</button>
             </div>
           )
+        }}
+      />
+      {/* )} */}
+
+      <Table
+        id='table-2'
+        columns={[{ id: 'name' }, { id: 'age' }]}
+        rows={{
+          data: [
+            { id: '1', name: 'beca', age: 10 },
+            { id: '2', name: 'adam', age: 30 },
+            { id: '3', name: 'cup', age: 3 }
+          ]
         }}
       />
     </div>
