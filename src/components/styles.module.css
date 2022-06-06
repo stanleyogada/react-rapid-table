@@ -20,3 +20,9 @@
 .row [data-testid='cell'] {
   border: 1px solid rgba(0, 0, 0, 0.088);
 }
+
+.table
+  [data-testid='thead-col-sort-icons']
+  [data-testid='thead-col-sort-text'] {
+  visibility: hidden;
+}

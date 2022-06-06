@@ -23,20 +23,29 @@ const THead: React.FC<TTHead> = ({
         {sortByTHeadColumnId?.id && sortByTHeadColumnId?.direction ? (
           <React.Fragment>
             {sortByTHeadColumnId.direction === 'asc' && (
-              <span data-testid='thead-col-sort-icon-asc'>
-                sortBy:{sortByTHeadColumnId?.id}-Asc
-              </span>
+              <React.Fragment>
+                <span data-testid='thead-col-sort-icon-asc' />
+                <span data-testid='thead-col-sort-text'>
+                  sortBy:{sortByTHeadColumnId?.id}-Asc
+                </span>
+              </React.Fragment>
             )}
             {sortByTHeadColumnId.direction === 'desc' && (
-              <span data-testid='thead-col-sort-icon-desc'>
-                sortBy:{sortByTHeadColumnId?.id}-Desc
-              </span>
+              <React.Fragment>
+                <span data-testid='thead-col-sort-icon-desc' />
+                <span data-testid='thead-col-sort-text'>
+                  sortBy:{sortByTHeadColumnId?.id}-Desc
+                </span>
+              </React.Fragment>
             )}
           </React.Fragment>
         ) : (
-          <span data-testid='thead-col-sort-icon-default'>
-            sortBy:{sortByTHeadColumnId?.id}-Default
-          </span>
+          <React.Fragment>
+            <span data-testid='thead-col-sort-icon-default' />
+            <span data-testid='thead-col-sort-text'>
+              sortBy:{sortByTHeadColumnId?.id}-Default
+            </span>
+          </React.Fragment>
         )}
       </span>
     </React.Fragment>
