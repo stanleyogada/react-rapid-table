@@ -1,17 +1,12 @@
 import * as React from 'react'
 import Rows from '../Rows/Rows'
-import { TColumn, TRow, TSortByTHeadColumnId } from '../../types'
-
-interface TTHead {
-  columns: TColumn[]
-  onCellClick?: (id: string | number) => void
-  sortByTHeadColumnId?: TSortByTHeadColumnId
-}
+import { TRow, TTHead } from '../../types'
 
 const THead: React.FC<TTHead> = ({
   columns,
   onCellClick,
-  sortByTHeadColumnId
+  sortByTHeadColumnId,
+  renderCustomCell
 }) => {
   const rowsData: TRow[] = [{ id: 1 }]
 
@@ -24,7 +19,9 @@ const THead: React.FC<TTHead> = ({
           <React.Fragment>
             {sortByTHeadColumnId.direction === 'asc' && (
               <React.Fragment>
-                <span data-testid='thead-col-sort-icon-asc' />
+                <span data-testid='thead-col-sort-icon-asc'>
+                  <i>&#9650;</i>
+                </span>
                 <span data-testid='thead-col-sort-text'>
                   sortBy:{sortByTHeadColumnId?.id}-Asc
                 </span>
@@ -32,7 +29,9 @@ const THead: React.FC<TTHead> = ({
             )}
             {sortByTHeadColumnId.direction === 'desc' && (
               <React.Fragment>
-                <span data-testid='thead-col-sort-icon-desc' />
+                <span data-testid='thead-col-sort-icon-desc'>
+                  <i>&#9660;</i>
+                </span>
                 <span data-testid='thead-col-sort-text'>
                   sortBy:{sortByTHeadColumnId?.id}-Desc
                 </span>
@@ -41,7 +40,10 @@ const THead: React.FC<TTHead> = ({
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <span data-testid='thead-col-sort-icon-default' />
+            <span data-testid='thead-col-sort-icon-default'>
+              <i>&#9660;</i>
+              <i>&#9650;</i>
+            </span>
             <span data-testid='thead-col-sort-text'>
               sortBy:{sortByTHeadColumnId?.id}-Default
             </span>
@@ -56,7 +58,11 @@ const THead: React.FC<TTHead> = ({
 
     return {
       ...col,
-      renderCell: sortByTHeadColumnId?.id === col.id ? renderCell : undefined
+      renderCell: renderCustomCell
+        ? (cellValue: any) => renderCustomCell?.(cellValue, sortByTHeadColumnId)
+        : sortByTHeadColumnId?.id === col.id
+        ? renderCell
+        : undefined
     }
   })
 

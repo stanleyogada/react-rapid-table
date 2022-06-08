@@ -27,10 +27,10 @@ describe('Rows component', () => {
       columns: [
         {
           id: 'name',
-          renderCell: (cellData: any) => (
+          renderCell: (cellValue: any) => (
             <>
-              <p>{cellData.text}</p>
-              <img src={cellData.photo} alt={cellData.text} />
+              <p>{cellValue.text}</p>
+              <img src={cellValue.photo} alt={cellValue.text} />
             </>
           )
         }
