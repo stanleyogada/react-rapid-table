@@ -6,7 +6,7 @@ import { Table } from './Table'
 import { TRow, TRowsOptions, TTable } from '../types'
 
 const setUp = (options?: {
-  rowsOptions?: TRowsOptions
+  tbodyOptions?: TRowsOptions
   rowsIsLoading?: boolean
   rowsData?: TRow[] | null
   rowsError?: any
@@ -25,7 +25,7 @@ const setUp = (options?: {
       error: options?.rowsError
     },
     columns: [{ id: 'name' }, { id: 'age' }],
-    rowsOptions: options?.rowsOptions
+    tbodyOptions: options?.tbodyOptions
   }
 
   return render(<Table {...props} />)
@@ -79,14 +79,14 @@ describe('Table component', () => {
     expect(screen.getByTestId('table')).toBeInTheDocument()
   })
 
-  test('ensures rowsOptions: `renderLoading` and `renderError` are called correctly', () => {
+  test('ensures tbodyOptions: `renderLoading` and `renderError` are called correctly', () => {
     let renderLoading = jest.fn()
     let renderError = jest.fn()
 
     setUp({
       rowsIsLoading: true,
       rowsError: null,
-      rowsOptions: {
+      tbodyOptions: {
         renderLoading,
         renderError
       }
@@ -104,7 +104,7 @@ describe('Table component', () => {
     setUp({
       rowsIsLoading: false,
       rowsError: new Error('test err!'), // Any type can be thrown as error
-      rowsOptions: {
+      tbodyOptions: {
         renderLoading,
         renderError
       }
@@ -123,7 +123,7 @@ describe('Table component', () => {
     cleanup()
     renderLoading = jest.fn()
     renderError = jest.fn()
-    setUp({ rowsIsLoading: true, rowsError: true, rowsOptions: {} })
+    setUp({ rowsIsLoading: true, rowsError: true, tbodyOptions: {} })
 
     expect(renderLoading).not.toHaveBeenCalled()
     expect(renderError).not.toHaveBeenCalled()

@@ -44,10 +44,10 @@ const Rows: React.FC<TRows> = ({ data, columns, rowsOptions, onCellClick }) => {
             />
           )}
 
-          {columns.map(({ id, renderCell }) => (
+          {columns.map(({ id, renderTbodyCell }) => (
             <Cell
               key={`${row.id}-${id}`}
-              text={renderCell ? () => renderCell(row[id]) : row[id]}
+              text={renderTbodyCell ? () => renderTbodyCell(row[id]) : row[id]}
               testId='cell'
               onClick={onCellClick?.bind(null, id)}
             />

@@ -24,7 +24,7 @@ describe('THead component', () => {
   test('renders a custom cell', () => {
     let props: TTHead = {
       columns: [{ id: 'name' }],
-      renderCustomCell: (_cellValue: any) => <h1>renderedCell</h1>
+      renderTheadCell: (_cellValue: any) => <h1>renderedCell</h1>
     }
 
     let screen = render(<THead {...props} />)
@@ -41,7 +41,7 @@ describe('THead component', () => {
 
     cleanup()
 
-    const renderCustomCell = jest.fn(
+    const renderTheadCell = jest.fn(
       (cellValue: any, sortByTHeadColumnId: TSortByTHeadColumnId) => (
         <h1>
           {cellValue}, {sortByTHeadColumnId?.id},{' '}
@@ -52,13 +52,13 @@ describe('THead component', () => {
 
     props = {
       columns: [{ id: 'name' }],
-      renderCustomCell,
+      renderTheadCell,
       sortByTHeadColumnId: { id: 'name', direction: 'asc' }
     }
     screen = render(<THead {...props} />)
 
-    expect(renderCustomCell).toHaveBeenCalledTimes(1)
-    expect(renderCustomCell).toHaveBeenCalledWith('name', {
+    expect(renderTheadCell).toHaveBeenCalledTimes(1)
+    expect(renderTheadCell).toHaveBeenCalledWith('name', {
       id: 'name',
       direction: 'asc'
     })

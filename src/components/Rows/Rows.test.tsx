@@ -21,13 +21,13 @@ describe('Rows component', () => {
     )
   })
 
-  test('renders renderCell works as expected', () => {
+  test('renders renderTbodyCell works as expected', () => {
     const props = {
       data: [{ id: 1, name: { text: 'RichCode', photo: '/pic.test' } }],
       columns: [
         {
           id: 'name',
-          renderCell: (cellValue: any) => (
+          renderTbodyCell: (cellValue: any) => (
             <>
               <p>{cellValue.text}</p>
               <img src={cellValue.photo} alt={cellValue.text} />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, useRows } from 'react-rapid-table'
+import { Table, TSortByTHeadColumnId, useRows } from 'react-rapid-table'
 import 'react-rapid-table/dist/index.css'
 import { getAllUsers, TUser } from './services/user'
 
@@ -29,14 +29,13 @@ const App = () => {
 
   return (
     <div>
-      {/* {rows.data && ( */}
       <Table
         id='table-1'
         columns={[
           {
             id: 'name',
-            renderCell: (name: string) => <h2>{name}</h2>,
-            minFractionOrWidth: '200px'
+            minFractionOrWidth: '200px',
+            renderTbodyCell: (name: string) => <h2>{name}</h2>
           },
           {
             id: 'username'
@@ -49,7 +48,21 @@ const App = () => {
           }
         ]}
         rows={rows}
-        rowsOptions={{
+        theadOptions={{
+          renderTheadCell: (
+            cellValue: string | number,
+            sortByTHeadColumnId?: TSortByTHeadColumnId
+          ) => (
+            <h1>
+              {cellValue}
+              {sortByTHeadColumnId?.id === cellValue &&
+                sortByTHeadColumnId?.direction && (
+                  <span>{sortByTHeadColumnId.direction}</span>
+                )}
+            </h1>
+          )
+        }}
+        tbodyOptions={{
           renderLoading: () => <div>Loading...</div>,
           renderError: (error: Error) => (
             <div>
@@ -59,7 +72,6 @@ const App = () => {
           )
         }}
       />
-      {/* )} */}
 
       <Table
         id='table-2'

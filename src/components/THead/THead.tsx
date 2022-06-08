@@ -6,11 +6,11 @@ const THead: React.FC<TTHead> = ({
   columns,
   onCellClick,
   sortByTHeadColumnId,
-  renderCustomCell
+  renderTheadCell
 }) => {
   const rowsData: TRow[] = [{ id: 1 }]
 
-  const renderCell = (cellValue: string) => (
+  const renderTbodyCell = (cellValue: string) => (
     <React.Fragment>
       {cellValue}
 
@@ -58,10 +58,10 @@ const THead: React.FC<TTHead> = ({
 
     return {
       ...col,
-      renderCell: renderCustomCell
-        ? (cellValue: any) => renderCustomCell?.(cellValue, sortByTHeadColumnId)
+      renderTbodyCell: renderTheadCell
+        ? (cellValue: any) => renderTheadCell?.(cellValue, sortByTHeadColumnId)
         : sortByTHeadColumnId?.id === col.id
-        ? renderCell
+        ? renderTbodyCell
         : undefined
     }
   })

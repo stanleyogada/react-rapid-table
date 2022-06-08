@@ -4,15 +4,21 @@ import styles from './styles.module.css'
 import THead from './THead/THead'
 import { TRow, TSortByTHeadColumnId, TTable } from '../types'
 
-export const Table = ({ id, columns, rows, rowsOptions }: TTable) => {
+export const Table = ({
+  id,
+  columns,
+  rows,
+  tbodyOptions,
+  theadOptions
+}: TTable) => {
   const [rowsData, setRowsData] = React.useState<undefined | null | TRow[]>(
     rows.data
   )
 
   const [sortByTHeadColumnId, setSortByTHeadColumnId] =
     React.useState<TSortByTHeadColumnId>({
-      // id: rowsOptions?.sortBy?.id, TODO: good suggestion by COPILOT: ADD `DEFAULT` IN `ROWS_OPTIONS`
-      // direction: rowsOptions?.sortBy?.direction TODO: good suggestion by COPILOT: ADD `DEFAULT` IN `ROWS_OPTIONS`
+      // id: tbodyOptions?.sortBy?.id, TODO: good suggestion by COPILOT: ADD `DEFAULT` IN `ROWS_OPTIONS`
+      // direction: tbodyOptions?.sortBy?.direction TODO: good suggestion by COPILOT: ADD `DEFAULT` IN `ROWS_OPTIONS`
       id: undefined,
       direction: null
     })
@@ -87,6 +93,7 @@ export const Table = ({ id, columns, rows, rowsOptions }: TTable) => {
             columns={columns}
             onCellClick={handleSortByTHeadColumn}
             sortByTHeadColumnId={sortByTHeadColumnId}
+            renderTheadCell={theadOptions?.renderTheadCell}
           />
 
           <div data-testid='tbody'>
@@ -96,11 +103,11 @@ export const Table = ({ id, columns, rows, rowsOptions }: TTable) => {
       )}
 
       {rows.isLoading && (
-        <div data-testid='loading'>{rowsOptions?.renderLoading?.()}</div>
+        <div data-testid='loading'>{tbodyOptions?.renderLoading?.()}</div>
       )}
 
       {rows.error && (
-        <div data-testid='error'>{rowsOptions?.renderError?.(rows.error)}</div>
+        <div data-testid='error'>{tbodyOptions?.renderError?.(rows.error)}</div>
       )}
     </div>
   )

@@ -6,7 +6,7 @@ export type TCell = {
 
 export type TColumn = {
   id: number | string
-  renderCell?: (cellValue: any) => React.ReactNode | string
+  renderTbodyCell?: (cellValue: any) => React.ReactNode | string
   minFractionOrWidth?: string
   maxFractionOrWidth?: string
 }
@@ -27,11 +27,18 @@ export interface TTableRows {
   isLoading?: boolean
   error?: any // Any type can be thrown as error
 }
+
 export interface TTable {
   id?: string
   rows: TTableRows
   columns: TColumn[]
-  rowsOptions?: TRowsOptions
+  tbodyOptions?: TRowsOptions
+  theadOptions?: {
+    renderTheadCell?: (
+      cellValue: string | number,
+      sortByTHeadColumnId?: TSortByTHeadColumnId
+    ) => React.ReactNode | string | number
+  }
 }
 
 export type TSortByTHeadColumnId = {
@@ -43,8 +50,8 @@ export interface TTHead {
   columns: TColumn[]
   onCellClick?: (id: string | number) => void
   sortByTHeadColumnId?: TSortByTHeadColumnId
-  renderCustomCell?: (
-    cellValue: any,
+  renderTheadCell?: (
+    cellValue: string | number,
     sortByTHeadColumnId?: TSortByTHeadColumnId
-  ) => React.ReactNode | string
+  ) => React.ReactNode | string | number
 }
