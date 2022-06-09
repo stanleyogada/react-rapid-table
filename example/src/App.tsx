@@ -1,10 +1,16 @@
 import React from 'react'
-import { Table, TSortByTHeadColumnId, useRows } from 'react-rapid-table'
+import {
+  Table,
+  TSortByTHeadColumnId,
+  useRows,
+  useThead
+} from 'react-rapid-table'
 import 'react-rapid-table/dist/index.css'
 import { getAllUsers, TUser } from './services/user'
 
 const App = () => {
   const { rows, handleGetRowsData } = useRows<TUser>()
+  const { currentCellHasASortDirection } = useThead()
 
   const onGetRowsData = React.useCallback(
     () =>
@@ -55,10 +61,9 @@ const App = () => {
           ) => (
             <h1>
               {cellValue}
-              {sortByTHeadColumnId?.id === cellValue &&
-                sortByTHeadColumnId?.direction && (
-                  <span>{sortByTHeadColumnId.direction}</span>
-                )}
+              {currentCellHasASortDirection(cellValue, sortByTHeadColumnId) && (
+                <span>{sortByTHeadColumnId?.direction}</span>
+              )}
             </h1>
           )
         }}
