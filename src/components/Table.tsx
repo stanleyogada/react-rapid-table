@@ -9,7 +9,8 @@ export const Table = ({
   columns,
   rows,
   tbodyOptions,
-  theadOptions
+  theadOptions,
+  otherOptions
 }: TTable) => {
   const [rowsData, setRowsData] = React.useState<undefined | null | TRow[]>(
     rows.data
@@ -17,8 +18,8 @@ export const Table = ({
 
   const [sortByTHeadColumnId, setSortByTHeadColumnId] =
     React.useState<TSortByTHeadColumnId>({
-      // id: tbodyOptions?.sortBy?.id, TODO: good suggestion by COPILOT: ADD `DEFAULT` IN `ROWS_OPTIONS`
-      // direction: tbodyOptions?.sortBy?.direction TODO: good suggestion by COPILOT: ADD `DEFAULT` IN `ROWS_OPTIONS`
+      // id: otherOptions?.sortBy?.id, TODO: good suggestion by COPILOT: ADD `DEFAULT value` IN `OTHER_OPTIONS`
+      // direction: otherOptions?.sortBy?.direction TODO: good suggestion by COPILOT: ADD `DEFAULT value` IN `OTHER_OPTIONS`
       id: undefined,
       direction: null
     })
@@ -85,6 +86,8 @@ export const Table = ({
     }
   }, [rows.data])
 
+  // console.log(otherOptions) //?
+
   return (
     <div id={id}>
       {rowsData && (
@@ -94,10 +97,25 @@ export const Table = ({
             onCellClick={handleSortByTHeadColumn}
             sortByTHeadColumnId={sortByTHeadColumnId}
             renderTheadCell={theadOptions?.renderTheadCell}
+            renderActionCell={
+              typeof otherOptions?.actionColumn === 'object'
+                ? otherOptions?.actionColumn?.renderTheadCell
+                : undefined
+            }
           />
 
           <div data-testid='tbody'>
-            {rowsData && <Rows data={rowsData} columns={columns} />}
+            {rowsData && (
+              <Rows
+                data={rowsData}
+                columns={columns}
+                renderActionCell={
+                  typeof otherOptions?.actionColumn === 'object'
+                    ? otherOptions?.actionColumn?.renderTbodyCell
+                    : undefined
+                }
+              />
+            )}
           </div>
         </div>
       )}

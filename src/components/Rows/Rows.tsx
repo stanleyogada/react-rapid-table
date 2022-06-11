@@ -8,9 +8,16 @@ interface TRows {
   columns: TColumn[]
   rowsOptions?: TRowsOptions
   onCellClick?: (id: string | number) => void
+  renderActionCell?: () => string | number | React.ReactNode
 }
 
-const Rows: React.FC<TRows> = ({ data, columns, rowsOptions, onCellClick }) => {
+const Rows: React.FC<TRows> = ({
+  data,
+  columns,
+  rowsOptions,
+  onCellClick,
+  renderActionCell
+}) => {
   const hardcoded_Style = {
     gridTemplateColumns: `${columns.reduce((acc, col) => {
       const columnMinFractionOrWidth =
@@ -52,6 +59,8 @@ const Rows: React.FC<TRows> = ({ data, columns, rowsOptions, onCellClick }) => {
               onClick={onCellClick?.bind(null, id)}
             />
           ))}
+
+          {renderActionCell?.()}
         </div>
       ))}
     </React.Fragment>

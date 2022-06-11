@@ -3,9 +3,10 @@ import '@testing-library/jest-dom/extend-expect'
 import { cleanup, render } from '@testing-library/react'
 import user from '@testing-library/user-event'
 import { Table } from './Table'
-import { TRow, TRowsOptions, TTable } from '../types'
+import { TOtherOptions, TRow, TRowsOptions, TTable } from '../types'
 
-const setUp = (options?: {
+const setup = (options?: {
+  otherOptions?: TOtherOptions
   tbodyOptions?: TRowsOptions
   rowsIsLoading?: boolean
   rowsData?: TRow[] | null
@@ -25,7 +26,8 @@ const setUp = (options?: {
       error: options?.rowsError
     },
     columns: [{ id: 'name' }, { id: 'age' }],
-    tbodyOptions: options?.tbodyOptions
+    tbodyOptions: options?.tbodyOptions,
+    otherOptions: options?.otherOptions
   }
 
   return render(<Table {...props} />)
@@ -33,7 +35,7 @@ const setUp = (options?: {
 
 describe('Table component', () => {
   test('renders only 1 table 1 thead and 1 tbody: renders numbers of rows correctly', () => {
-    const screen = setUp()
+    const screen = setup()
 
     expect(screen.getByTestId('table')).toBeInTheDocument()
     expect(screen.getByTestId('thead')).toBeInTheDocument()
@@ -42,7 +44,7 @@ describe('Table component', () => {
   })
 
   test('ensures all states (`loading`, `error` and `data`) renders without interception each other', () => {
-    let screen = setUp({
+    let screen = setup({
       rowsIsLoading: true,
       rowsError: new Error('test err!')
     })
@@ -51,13 +53,13 @@ describe('Table component', () => {
     expect(screen.getByTestId('error')).toBeInTheDocument()
 
     cleanup()
-    screen = setUp({ rowsIsLoading: true, rowsData: null, rowsError: null })
+    screen = setup({ rowsIsLoading: true, rowsData: null, rowsError: null })
     expect(screen.getByTestId('loading')).toBeInTheDocument()
     expect(screen.queryByTestId('error')).not.toBeInTheDocument()
     expect(screen.queryByTestId('table')).not.toBeInTheDocument()
 
     cleanup()
-    screen = setUp({
+    screen = setup({
       rowsIsLoading: false,
       rowsData: null,
       rowsError: null
@@ -69,7 +71,7 @@ describe('Table component', () => {
 
     // This ensures that infinite scrolling could be implemented
     cleanup()
-    screen = setUp({
+    screen = setup({
       rowsIsLoading: true,
       rowsData: [{ id: '1', name: 'test' }],
       rowsError: new Error('test err!')
@@ -83,7 +85,7 @@ describe('Table component', () => {
     let renderLoading = jest.fn()
     let renderError = jest.fn()
 
-    setUp({
+    setup({
       rowsIsLoading: true,
       rowsError: null,
       tbodyOptions: {
@@ -101,7 +103,7 @@ describe('Table component', () => {
     cleanup()
     renderLoading = jest.fn()
     renderError = jest.fn()
-    setUp({
+    setup({
       rowsIsLoading: false,
       rowsError: new Error('test err!'), // Any type can be thrown as error
       tbodyOptions: {
@@ -123,14 +125,14 @@ describe('Table component', () => {
     cleanup()
     renderLoading = jest.fn()
     renderError = jest.fn()
-    setUp({ rowsIsLoading: true, rowsError: true, tbodyOptions: {} })
+    setup({ rowsIsLoading: true, rowsError: true, tbodyOptions: {} })
 
     expect(renderLoading).not.toHaveBeenCalled()
     expect(renderError).not.toHaveBeenCalled()
   })
 
   test('ensure sorts by column correctly', async () => {
-    const screen = setUp()
+    const screen = setup()
     const thead = screen.getByTestId('thead')
     const name_theadColumnCell = thead.querySelectorAll(
       '[data-testid="cell"]'
@@ -157,5 +159,19 @@ describe('Table component', () => {
     expect(age_theadColumnCell).toHaveTextContent(/sortBy:age-desc/i)
     user.click(age_theadColumnCell)
     expect(age_theadColumnCell).toHaveTextContent(/sortBy:age-default/i)
+  })
+
+  test('renders action column correctly', async () => {
+    const screen = setup({
+      otherOptions: {
+        actionColumn: {
+          renderTheadCell: () => 'action',
+          renderTbodyCell: () => <button>more</button>
+        }
+      }
+    })
+
+    expect(screen.getAllByText('action').length).toBe(1)
+    expect(screen.getAllByRole('button', { name: 'more' }).length).toBe(3)
   })
 })

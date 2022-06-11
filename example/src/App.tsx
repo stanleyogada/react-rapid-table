@@ -88,6 +88,12 @@ const App = () => {
             { id: '3', name: 'cup', age: 3 }
           ]
         }}
+        otherOptions={{
+          actionColumn: {
+            renderTheadCell: () => 'action',
+            renderTbodyCell: () => <button>more</button>
+          }
+        }}
       />
     </div>
   )

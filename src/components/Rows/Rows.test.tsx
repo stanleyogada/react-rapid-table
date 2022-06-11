@@ -43,14 +43,18 @@ describe('Rows component', () => {
   })
 
   describe('When options prop is passed', () => {
-    const setup = (rowsOptions: TRowsOptions) => {
+    const setup = (
+      rowsOptions?: TRowsOptions,
+      renderActionCell?: () => string | number | React.ReactNode
+    ) => {
       const props = {
         data: [
           { id: 1, name: 'test' },
           { id: 2, name: 'some' }
         ],
         columns: [{ id: 'name' }],
-        rowsOptions
+        rowsOptions,
+        renderActionCell
       }
 
       return render(<Rows {...props} />)
@@ -96,6 +100,19 @@ describe('Rows component', () => {
         expect(screen.getAllByTestId('cell-number')[0]).toHaveTextContent('S/N')
         expect(screen.getAllByTestId('cell-number')[1]).toHaveTextContent('S/N')
       })
+    })
+
+    test('renders action cell correctly', async () => {
+      let screen = setup(undefined, () => 'action')
+      expect(screen.getAllByText('action').length).toBe(2)
+      expect(
+        screen.queryByRole('button', { name: 'more' })
+      ).not.toBeInTheDocument()
+
+      cleanup()
+      screen = setup(undefined, () => <button>more</button>)
+      expect(screen.getAllByRole('button', { name: 'more' }).length).toBe(2)
+      expect(screen.queryByText('action')).not.toBeInTheDocument()
     })
   })
 })

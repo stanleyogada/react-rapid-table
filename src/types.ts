@@ -1,12 +1,12 @@
 export type TCell = {
-  text: string | React.ReactNode | (() => React.ReactNode | string)
+  text: string | number | React.ReactNode
   testId?: string
   onClick?: (id: number | string) => void
 }
 
 export type TColumn = {
   id: number | string
-  renderTbodyCell?: (cellValue: any) => React.ReactNode | string
+  renderTbodyCell?: (cellValue: any) => string | number | React.ReactNode
   minFractionOrWidth?: string
   maxFractionOrWidth?: string
 }
@@ -18,8 +18,8 @@ export type TRow = {
 
 export type TRowsOptions = {
   showNumbers?: boolean | ((rowsNumber: number) => any)
-  renderError?: (error: any) => any
-  renderLoading?: () => any
+  renderError?: (error: any) => string | number | React.ReactNode
+  renderLoading?: () => string | number | React.ReactNode
 }
 
 export interface TTableRows {
@@ -28,6 +28,14 @@ export interface TTableRows {
   error?: any // Any type can be thrown as error
 }
 
+export type TOtherOptions = {
+  actionColumn?:
+    | boolean
+    | {
+        renderTheadCell?: () => string | number | React.ReactNode
+        renderTbodyCell: () => string | number | React.ReactNode
+      }
+}
 export interface TTable {
   id?: string
   rows: TTableRows
@@ -39,6 +47,7 @@ export interface TTable {
       sortByTHeadColumnId?: TSortByTHeadColumnId
     ) => React.ReactNode | string | number
   }
+  otherOptions?: TOtherOptions
 }
 
 export type TSortByTHeadColumnId = {
@@ -53,5 +62,6 @@ export interface TTHead {
   renderTheadCell?: (
     cellValue: string | number,
     sortByTHeadColumnId?: TSortByTHeadColumnId
-  ) => React.ReactNode | string | number
+  ) => string | number | React.ReactNode
+  renderActionCell?: () => string | number | React.ReactNode
 }
