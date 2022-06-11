@@ -7,7 +7,8 @@ const THead: React.FC<TTHead> = ({
   onCellClick,
   sortByTHeadColumnId,
   renderTheadCell,
-  renderActionCell
+  renderActionCell,
+  actionCellWidth
 }) => {
   const rowsData: TRow[] = [{ id: 1 }]
 
@@ -74,6 +75,7 @@ const THead: React.FC<TTHead> = ({
         columns={columns}
         onCellClick={onCellClick}
         renderActionCell={renderActionCell}
+        actionCellWidth={actionCellWidth}
       />
     </div>
   )

@@ -9,6 +9,7 @@ interface TRows {
   rowsOptions?: TRowsOptions
   onCellClick?: (id: string | number) => void
   renderActionCell?: () => string | number | React.ReactNode
+  actionCellWidth?: string
 }
 
 const Rows: React.FC<TRows> = ({
@@ -16,19 +17,34 @@ const Rows: React.FC<TRows> = ({
   columns,
   rowsOptions,
   onCellClick,
-  renderActionCell
+  renderActionCell,
+  actionCellWidth = '60px'
 }) => {
-  const hardcoded_Style = {
-    gridTemplateColumns: `${columns.reduce((acc, col) => {
-      const columnMinFractionOrWidth =
-        col.minFractionOrWidth || 100 / columns.length + '%'
-      const columnMaxFractionOrWidth = col.maxFractionOrWidth || '1fr'
+  const getHardcodedStyle = () => {
+    const newCols: TColumn[] = [...columns]
+    const actionColumn: TColumn = {
+      id: 'action',
+      maxFractionOrWidth: actionCellWidth,
+      minFractionOrWidth: actionCellWidth
+    }
+    if (renderActionCell) newCols.push(actionColumn)
 
-      return (
-        acc +
-        ` minmax(${columnMinFractionOrWidth}, ${columnMaxFractionOrWidth})`
-      )
-    }, '')}`
+    return {
+      gridTemplateColumns: `${newCols.reduce((acc, col) => {
+        let columnMinFractionOrWidth =
+          col.minFractionOrWidth || 100 / columns.length + '%'
+
+        if (renderActionCell)
+          columnMinFractionOrWidth = `calc(${columnMinFractionOrWidth} - ${actionCellWidth})`
+
+        const columnMaxFractionOrWidth = col.maxFractionOrWidth || '1fr'
+
+        return (
+          acc +
+          ` minmax(${columnMinFractionOrWidth}, ${columnMaxFractionOrWidth})`
+        )
+      }, '')}`
+    }
   }
 
   return (
@@ -38,7 +54,7 @@ const Rows: React.FC<TRows> = ({
           key={row.id}
           data-testid='row'
           className={styles.row}
-          style={hardcoded_Style}
+          style={getHardcodedStyle()}
         >
           {rowsOptions?.showNumbers && (
             <Cell

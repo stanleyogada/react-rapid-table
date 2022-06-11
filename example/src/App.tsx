@@ -92,6 +92,7 @@ const App = () => {
           actionColumn: {
             renderTheadCell: () => 'action',
             renderTbodyCell: () => <button>more</button>
+            // columnWidth: '50px'
           }
         }}
       />

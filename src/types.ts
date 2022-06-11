@@ -34,6 +34,7 @@ export type TOtherOptions = {
     | {
         renderTheadCell?: () => string | number | React.ReactNode
         renderTbodyCell: () => string | number | React.ReactNode
+        columnWidth?: string
       }
 }
 export interface TTable {
@@ -64,4 +65,5 @@ export interface TTHead {
     sortByTHeadColumnId?: TSortByTHeadColumnId
   ) => string | number | React.ReactNode
   renderActionCell?: () => string | number | React.ReactNode
+  actionCellWidth?: string
 }

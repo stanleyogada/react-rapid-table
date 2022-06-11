@@ -102,6 +102,11 @@ export const Table = ({
                 ? otherOptions?.actionColumn?.renderTheadCell
                 : undefined
             }
+            actionCellWidth={
+              typeof otherOptions?.actionColumn === 'object'
+                ? otherOptions?.actionColumn?.columnWidth
+                : undefined
+            }
           />
 
           <div data-testid='tbody'>
@@ -112,6 +117,11 @@ export const Table = ({
                 renderActionCell={
                   typeof otherOptions?.actionColumn === 'object'
                     ? otherOptions?.actionColumn?.renderTbodyCell
+                    : undefined
+                }
+                actionCellWidth={
+                  typeof otherOptions?.actionColumn === 'object'
+                    ? otherOptions?.actionColumn?.columnWidth
                     : undefined
                 }
               />
