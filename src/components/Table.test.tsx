@@ -165,7 +165,7 @@ describe('Table component', () => {
     global.console.log = jest.fn()
     const handleActionMoreButtonClick = jest.fn((row: TRow) => console.log(row))
 
-    const screen = setup({
+    let screen = setup({
       otherOptions: {
         actionColumn: {
           renderTheadCell: () => 'action',
@@ -189,7 +189,6 @@ describe('Table component', () => {
       name: 'beca',
       age: 10
     })
-    // expect console.log to have been called
     expect(console.log).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalledTimes(1)
     expect(console.log).toHaveBeenCalledWith({
@@ -197,5 +196,22 @@ describe('Table component', () => {
       name: 'beca',
       age: 10
     })
+
+    // TEst when only renderTbodyCell is provided
+    cleanup()
+    screen = setup({
+      otherOptions: { actionColumn: { renderTbodyCell: () => 'more btn' } }
+    })
+
+    expect(screen.queryAllByTestId('action-cell').length).toBe(4)
+    expect(screen.getAllByText('more btn').length).toBe(3)
+    expect(
+      screen.getByTestId('action-cell-thead-empty-content')
+    ).toBeInTheDocument()
+
+    // Test when NO actionColumn is provided
+    cleanup()
+    screen = setup({ otherOptions: undefined })
+    expect(screen.queryAllByTestId('action-cell').length).toBe(0)
   })
 })

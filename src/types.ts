@@ -30,13 +30,11 @@ export interface TTableRows {
 }
 
 export type TOtherOptions = {
-  actionColumn?:
-    | boolean
-    | {
-        renderTheadCell?: (row: TRow) => string | number | React.ReactNode
-        renderTbodyCell: (row: TRow) => string | number | React.ReactNode
-        columnWidth?: string
-      }
+  actionColumn?: {
+    renderTheadCell?: (row: TRow) => string | number | React.ReactNode
+    renderTbodyCell: (row: TRow) => string | number | React.ReactNode
+    columnWidth?: string
+  }
 }
 export interface TTable {
   id?: string

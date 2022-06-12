@@ -94,9 +94,9 @@ const App = () => {
         }}
         otherOptions={{
           actionColumn: {
-            renderTheadCell: (row: TRow) => (
-              <p onClick={() => alert(JSON.stringify(row))}>action</p>
-            ),
+            // renderTheadCell: (row: TRow) => (
+            //   <p onClick={() => alert(JSON.stringify(row))}>action</p>
+            // ),
             renderTbodyCell: (row: TRow) => (
               <button onClick={() => alert(row.id)}>more</button>
             )

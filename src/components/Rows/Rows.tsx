@@ -79,12 +79,14 @@ const Rows: React.FC<TRows> = ({
             />
           ))}
 
-          <div
-            // separate row event listener from the action cell event listener
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Cell text={renderActionCell?.(row)} testId='action-cell' />
-          </div>
+          {renderActionCell && (
+            <div
+              // separate row event listener from the action cell event listener
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Cell text={renderActionCell(row)} testId='action-cell' />
+            </div>
+          )}
         </div>
       ))}
     </React.Fragment>

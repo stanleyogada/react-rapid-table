@@ -98,15 +98,14 @@ export const Table = ({
             sortByTHeadColumnId={sortByTHeadColumnId}
             renderTheadCell={theadOptions?.renderTheadCell}
             renderActionCell={
-              typeof otherOptions?.actionColumn === 'object'
-                ? otherOptions?.actionColumn?.renderTheadCell
-                : undefined
+              otherOptions?.actionColumn?.renderTheadCell ||
+              (otherOptions?.actionColumn?.renderTbodyCell
+                ? () => (
+                    <span data-testid='action-cell-thead-empty-content'></span>
+                  )
+                : undefined)
             }
-            actionCellWidth={
-              typeof otherOptions?.actionColumn === 'object'
-                ? otherOptions?.actionColumn?.columnWidth
-                : undefined
-            }
+            actionCellWidth={otherOptions?.actionColumn?.columnWidth}
           />
 
           <div data-testid='tbody'>
@@ -114,16 +113,8 @@ export const Table = ({
               <Rows
                 data={rowsData}
                 columns={columns}
-                renderActionCell={
-                  typeof otherOptions?.actionColumn === 'object'
-                    ? otherOptions?.actionColumn?.renderTbodyCell
-                    : undefined
-                }
-                actionCellWidth={
-                  typeof otherOptions?.actionColumn === 'object'
-                    ? otherOptions?.actionColumn?.columnWidth
-                    : undefined
-                }
+                renderActionCell={otherOptions?.actionColumn?.renderTbodyCell}
+                actionCellWidth={otherOptions?.actionColumn?.columnWidth}
                 onClick={tbodyOptions?.onRowClick}
               />
             )}
