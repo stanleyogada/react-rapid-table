@@ -17,7 +17,8 @@
   display: grid;
 }
 
-.row [data-testid='cell'] {
+.row [data-testid='cell'],
+.row [data-testid='action-cell'] {
   border: 1px solid rgba(0, 0, 0, 0.088);
 }
 

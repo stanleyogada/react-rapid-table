@@ -80,11 +80,10 @@ const Rows: React.FC<TRows> = ({
           ))}
 
           <div
-            id='action-cell'
             // separate row event listener from the action cell event listener
             onClick={(e) => e.stopPropagation()}
           >
-            {renderActionCell?.(row)}
+            <Cell text={renderActionCell?.(row)} testId='action-cell' />
           </div>
         </div>
       ))}
