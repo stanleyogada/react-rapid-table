@@ -8,8 +8,9 @@ interface TRows {
   columns: TColumn[]
   rowsOptions?: TRowsOptions
   onCellClick?: (id: string | number) => void
-  renderActionCell?: () => string | number | React.ReactNode
+  renderActionCell?: (row: TRow) => string | number | React.ReactNode
   actionCellWidth?: string
+  onClick?: (row: TRow) => void
 }
 
 const Rows: React.FC<TRows> = ({
@@ -18,7 +19,8 @@ const Rows: React.FC<TRows> = ({
   rowsOptions,
   onCellClick,
   renderActionCell,
-  actionCellWidth = '60px'
+  actionCellWidth = '60px',
+  onClick
 }) => {
   const getHardcodedStyle = () => {
     const newCols: TColumn[] = [...columns]
@@ -55,6 +57,7 @@ const Rows: React.FC<TRows> = ({
           data-testid='row'
           className={styles.row}
           style={getHardcodedStyle()}
+          onClick={() => onClick?.(row)}
         >
           {rowsOptions?.showNumbers && (
             <Cell
@@ -76,7 +79,13 @@ const Rows: React.FC<TRows> = ({
             />
           ))}
 
-          {renderActionCell?.()}
+          <div
+            id='action-cell'
+            // separate row event listener from the action cell event listener
+            onClick={(e) => e.stopPropagation()}
+          >
+            {renderActionCell?.(row)}
+          </div>
         </div>
       ))}
     </React.Fragment>

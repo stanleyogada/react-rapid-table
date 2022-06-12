@@ -1,8 +1,9 @@
 import * as React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, cleanup } from '@testing-library/react'
+import user from '@testing-library/user-event'
 import Rows from './Rows'
-import { TRowsOptions } from '../../types'
+import { TRow, TRowsOptions } from '../../types'
 
 describe('Rows component', () => {
   test('renders rows and cells correctly', () => {
@@ -45,7 +46,8 @@ describe('Rows component', () => {
   describe('When options prop is passed', () => {
     const setup = (
       rowsOptions?: TRowsOptions,
-      renderActionCell?: () => string | number | React.ReactNode
+      renderActionCell?: (row: TRow) => string | number | React.ReactNode,
+      onClick?: (row: TRow) => void
     ) => {
       const props = {
         data: [
@@ -54,7 +56,8 @@ describe('Rows component', () => {
         ],
         columns: [{ id: 'name' }],
         rowsOptions,
-        renderActionCell
+        renderActionCell,
+        onClick
       }
 
       return render(<Rows {...props} />)
@@ -113,6 +116,19 @@ describe('Rows component', () => {
       screen = setup(undefined, () => <button>more</button>)
       expect(screen.getAllByRole('button', { name: 'more' }).length).toBe(2)
       expect(screen.queryByText('action')).not.toBeInTheDocument()
+    })
+
+    test('ensures onRowClick can be passed', () => {
+      global.console.log = jest.fn()
+      const onRowClick = jest.fn((row: TRow) => console.log(row))
+      let screen = setup(undefined, undefined, onRowClick)
+
+      const firstRow = screen.getAllByTestId('row')[0]
+      user.click(firstRow)
+      expect(onRowClick).toHaveBeenCalledTimes(1)
+      expect(onRowClick).toHaveBeenCalledWith({ id: 1, name: 'test' })
+      expect(console.log).toHaveBeenCalledTimes(1)
+      expect(console.log).toHaveBeenCalledWith({ id: 1, name: 'test' })
     })
   })
 })

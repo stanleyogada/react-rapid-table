@@ -162,16 +162,40 @@ describe('Table component', () => {
   })
 
   test('renders action column correctly', async () => {
+    global.console.log = jest.fn()
+    const handleActionMoreButtonClick = jest.fn((row: TRow) => console.log(row))
+
     const screen = setup({
       otherOptions: {
         actionColumn: {
           renderTheadCell: () => 'action',
-          renderTbodyCell: () => <button>more</button>
+          renderTbodyCell: (row: TRow) => (
+            <button onClick={() => handleActionMoreButtonClick(row)}>
+              more
+            </button>
+          )
         }
       }
     })
 
     expect(screen.getAllByText('action').length).toBe(1)
     expect(screen.getAllByRole('button', { name: 'more' }).length).toBe(3)
+
+    user.click(screen.getAllByRole('button', { name: 'more' })[0])
+    expect(handleActionMoreButtonClick).toHaveBeenCalled()
+    expect(handleActionMoreButtonClick).toHaveBeenCalledTimes(1)
+    expect(handleActionMoreButtonClick).toHaveBeenCalledWith({
+      id: '1',
+      name: 'beca',
+      age: 10
+    })
+    // expect console.log to have been called
+    expect(console.log).toHaveBeenCalled()
+    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.log).toHaveBeenCalledWith({
+      id: '1',
+      name: 'beca',
+      age: 10
+    })
   })
 })

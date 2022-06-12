@@ -20,6 +20,7 @@ export type TRowsOptions = {
   showNumbers?: boolean | ((rowsNumber: number) => any)
   renderError?: (error: any) => string | number | React.ReactNode
   renderLoading?: () => string | number | React.ReactNode
+  onRowClick?: (row: TRow) => void
 }
 
 export interface TTableRows {
@@ -32,8 +33,8 @@ export type TOtherOptions = {
   actionColumn?:
     | boolean
     | {
-        renderTheadCell?: () => string | number | React.ReactNode
-        renderTbodyCell: () => string | number | React.ReactNode
+        renderTheadCell?: (row: TRow) => string | number | React.ReactNode
+        renderTbodyCell: (row: TRow) => string | number | React.ReactNode
         columnWidth?: string
       }
 }
@@ -64,6 +65,6 @@ export interface TTHead {
     cellValue: string | number,
     sortByTHeadColumnId?: TSortByTHeadColumnId
   ) => string | number | React.ReactNode
-  renderActionCell?: () => string | number | React.ReactNode
+  renderActionCell?: (row: TRow) => string | number | React.ReactNode
   actionCellWidth?: string
 }

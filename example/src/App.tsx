@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   Table,
+  TRow,
   TSortByTHeadColumnId,
   useRows,
   useThead
@@ -88,10 +89,17 @@ const App = () => {
             { id: '3', name: 'cup', age: 3 }
           ]
         }}
+        tbodyOptions={{
+          onRowClick: (row: TRow) => console.log(row.name + ' row clicked')
+        }}
         otherOptions={{
           actionColumn: {
-            renderTheadCell: () => 'action',
-            renderTbodyCell: () => <button>more</button>
+            renderTheadCell: (row: TRow) => (
+              <p onClick={() => alert(JSON.stringify(row))}>action</p>
+            ),
+            renderTbodyCell: (row: TRow) => (
+              <button onClick={() => alert(row.id)}>more</button>
+            )
             // columnWidth: '50px'
           }
         }}

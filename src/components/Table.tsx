@@ -124,6 +124,7 @@ export const Table = ({
                     ? otherOptions?.actionColumn?.columnWidth
                     : undefined
                 }
+                onClick={tbodyOptions?.onRowClick}
               />
             )}
           </div>
