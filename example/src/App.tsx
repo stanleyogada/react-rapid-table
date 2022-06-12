@@ -32,8 +32,6 @@ const App = () => {
     onGetRowsData()
   }, [onGetRowsData])
 
-  console.log(rows)
-
   return (
     <div>
       <Table
@@ -93,10 +91,11 @@ const App = () => {
           onRowClick: (row: TRow) => console.log(row.name + ' row clicked')
         }}
         otherOptions={{
+          // showNumbers: true, TODO: fix grid column (messed up layout)
           actionColumn: {
-            // renderTheadCell: (row: TRow) => (
-            //   <p onClick={() => alert(JSON.stringify(row))}>action</p>
-            // ),
+            renderTheadCell: (row: TRow) => (
+              <p onClick={() => alert(JSON.stringify(row))}>action</p>
+            ),
             renderTbodyCell: (row: TRow) => (
               <button onClick={() => alert(row.id)}>more</button>
             )

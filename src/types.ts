@@ -35,6 +35,7 @@ export type TOtherOptions = {
     renderTbodyCell: (row: TRow) => string | number | React.ReactNode
     columnWidth?: string
   }
+  showNumbers?: boolean | ((rowsNumber: number) => any)
 }
 export interface TTable {
   id?: string

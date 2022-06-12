@@ -116,6 +116,7 @@ export const Table = ({
                 renderActionCell={otherOptions?.actionColumn?.renderTbodyCell}
                 actionCellWidth={otherOptions?.actionColumn?.columnWidth}
                 onClick={tbodyOptions?.onRowClick}
+                rowsOptions={{ showNumbers: otherOptions?.showNumbers }}
               />
             )}
           </div>
