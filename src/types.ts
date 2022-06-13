@@ -2,6 +2,7 @@ export type TCell = {
   text: string | number | React.ReactNode
   testId?: string
   onClick?: (id: number | string) => void
+  styles?: React.CSSProperties
 }
 
 export type TColumn = {
@@ -66,4 +67,18 @@ export interface TTHead {
   ) => string | number | React.ReactNode
   renderActionCell?: (row: TRow) => string | number | React.ReactNode
   actionCellWidth?: string
+  styles?: React.CSSProperties
+  cellStyles?: React.CSSProperties
+}
+
+export type TTableThemeProviderPropsStyles = {
+  table?: React.CSSProperties
+  thead?: React.CSSProperties
+  tbody?: React.CSSProperties
+  cell?: React.CSSProperties
+}
+
+export type TTableThemeProviderProps = {
+  children?: React.ReactNode
+  styles?: TTableThemeProviderPropsStyles
 }

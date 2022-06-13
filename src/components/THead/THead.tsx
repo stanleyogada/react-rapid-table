@@ -8,7 +8,9 @@ const THead: React.FC<TTHead> = ({
   sortByTHeadColumnId,
   renderTheadCell,
   renderActionCell,
-  actionCellWidth
+  actionCellWidth,
+  styles,
+  cellStyles
 }) => {
   const rowsData: TRow[] = [{ id: 1 }]
 
@@ -69,13 +71,14 @@ const THead: React.FC<TTHead> = ({
   })
 
   return (
-    <div data-testid='thead'>
+    <div data-testid='thead' style={styles}>
       <Rows
         data={rowsData}
         columns={columns}
         onCellClick={onCellClick}
         renderActionCell={renderActionCell}
         actionCellWidth={actionCellWidth}
+        cellStyles={cellStyles}
       />
     </div>
   )

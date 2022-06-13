@@ -3,6 +3,7 @@ import Rows from './Rows/Rows'
 import styles from './styles.module.css'
 import THead from './THead/THead'
 import { TRow, TSortByTHeadColumnId, TTable } from '../types'
+import { useTheme } from './TableThemeProvider/context/useTheme'
 
 export const Table = ({
   id,
@@ -12,6 +13,8 @@ export const Table = ({
   theadOptions,
   otherOptions
 }: TTable) => {
+  const theme = useTheme()
+
   const [rowsData, setRowsData] = React.useState<undefined | null | TRow[]>(
     rows.data
   )
@@ -45,16 +48,14 @@ export const Table = ({
     let mounted = true
 
     if (sortByTHeadColumnId?.id) {
-      console.log(sortByTHeadColumnId)
-
       if (sortByTHeadColumnId.direction == null && rows.data && mounted)
         //reset sort to original rowsData
         return setRowsData(rows.data)
 
       const newRowsData = [...(rowsData || [])]
       newRowsData.sort((a, b) => {
-        const aValue = a[sortByTHeadColumnId.id as string]
-        const bValue = b[sortByTHeadColumnId.id as string]
+        const aValue: string | number = a[sortByTHeadColumnId.id as string]
+        const bValue: string | number = b[sortByTHeadColumnId.id as string]
 
         if (typeof aValue === 'string' && typeof bValue === 'string') {
           return sortByTHeadColumnId.direction === 'asc'
@@ -86,13 +87,17 @@ export const Table = ({
     }
   }, [rows.data])
 
-  // console.log(otherOptions) //?
-
   return (
     <div id={id}>
       {rowsData && (
-        <div className={styles.table} data-testid='table'>
+        <div
+          className={styles.table}
+          data-testid='table'
+          style={theme?.styles?.table}
+        >
           <THead
+            styles={theme?.styles?.thead}
+            cellStyles={theme?.styles?.cell}
             columns={columns}
             onCellClick={handleSortByTHeadColumn}
             sortByTHeadColumnId={sortByTHeadColumnId}
@@ -108,9 +113,10 @@ export const Table = ({
             actionCellWidth={otherOptions?.actionColumn?.columnWidth}
           />
 
-          <div data-testid='tbody'>
+          <div data-testid='tbody' style={theme?.styles?.tbody}>
             {rowsData && (
               <Rows
+                cellStyles={theme?.styles?.cell}
                 data={rowsData}
                 columns={columns}
                 renderActionCell={otherOptions?.actionColumn?.renderTbodyCell}

@@ -11,6 +11,7 @@ interface TRows {
   renderActionCell?: (row: TRow) => string | number | React.ReactNode
   actionCellWidth?: string
   onClick?: (row: TRow) => void
+  cellStyles?: React.CSSProperties
 }
 
 const Rows: React.FC<TRows> = ({
@@ -20,7 +21,8 @@ const Rows: React.FC<TRows> = ({
   onCellClick,
   renderActionCell,
   actionCellWidth = '60px',
-  onClick
+  onClick,
+  cellStyles
 }) => {
   const getHardcodedStyle = () => {
     const newCols: TColumn[] = [...columns]
@@ -76,6 +78,7 @@ const Rows: React.FC<TRows> = ({
               text={renderTbodyCell ? () => renderTbodyCell(row[id]) : row[id]}
               testId='cell'
               onClick={onCellClick?.bind(null, id)}
+              styles={cellStyles}
             />
           ))}
 
