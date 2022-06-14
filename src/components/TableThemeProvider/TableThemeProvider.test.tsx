@@ -43,23 +43,27 @@ describe('TableThemeProvider', () => {
       }
     })
 
-    screen.getAllByTestId('thead').forEach((thead) => {
+    screen.getAllByTestId('thead').forEach((thead: HTMLElement) => {
       expect(thead).toHaveStyle('background: green')
       expect(thead).toHaveStyle('color: white')
     })
 
     screen
       .getAllByTestId('tbody')
-      .forEach((tbody) => expect(tbody).toHaveStyle('background: blue'))
+      .forEach((tbody: HTMLElement) =>
+        expect(tbody).toHaveStyle('background: blue')
+      )
 
     screen
       .getAllByTestId('table')
-      .forEach((table) => expect(table).toHaveStyle('border: 1px solid black'))
+      .forEach((table: HTMLElement) =>
+        expect(table).toHaveStyle('border: 1px solid black')
+      )
 
     screen.debug(screen.getAllByTestId('cell')) //?
 
     screen
       .getAllByTestId('cell')
-      .forEach((cell) => expect(cell).toHaveStyle('color: red'))
+      .forEach((cell: HTMLElement) => expect(cell).toHaveStyle('color: red'))
   })
 })
