@@ -1,9 +1,10 @@
 import * as React from 'react'
 import Rows from './Rows/Rows'
-import styles from './styles.module.css'
+// import styles from './styles.module.css'
 import THead from './THead/THead'
 import { TRow, TSortByTHeadColumnId, TTable } from '../types'
 import { useTheme } from './TableThemeProvider/context/useTheme'
+import TableStyles from './TableStyles'
 
 export const Table = ({
   id,
@@ -90,11 +91,7 @@ export const Table = ({
   return (
     <div id={id}>
       {rowsData && (
-        <div
-          className={styles.table}
-          data-testid='table'
-          style={theme?.styles?.table}
-        >
+        <TableStyles data-testid='table' style={theme?.styles?.table}>
           <THead
             styles={theme?.styles?.thead}
             cellStyles={theme?.styles?.cell}
@@ -126,7 +123,7 @@ export const Table = ({
               />
             )}
           </div>
-        </div>
+        </TableStyles>
       )}
 
       {rows.isLoading && (

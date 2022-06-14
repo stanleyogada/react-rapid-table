@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Cell from '../Cell/Cell'
 import { TColumn, TRow, TRowsOptions } from '../../types'
-import styles from '../styles.module.css'
 
 interface TRows {
   data: TRow[]
@@ -57,7 +56,6 @@ const Rows: React.FC<TRows> = ({
         <div
           key={row.id}
           data-testid='row'
-          className={styles.row}
           style={getHardcodedStyle()}
           onClick={() => onClick?.(row)}
         >
