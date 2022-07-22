@@ -106,9 +106,6 @@ class App extends Component {
 | renderLoading? |      () => string \| number \| React.ReactNode      | n/a         |
 | onRowClick?    |                 (row: TRow) => void                 | n/a         |
 
-actionColumn?:
-showNumbers?:
-
 #### TOtherOptions
 
 | Prop          |                                                                                   Type                                                                                    | Description |
