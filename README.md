@@ -38,11 +38,6 @@ class App extends Component {
 
 ## API
 
-  table?: React.CSSProperties
-  thead?: React.CSSProperties
-  tbody?: React.CSSProperties
-  cell?: React.CSSProperties
-
 ### Components
 #### Table
 | Prop | Type | Description |
@@ -50,16 +45,15 @@ class App extends Component {
 | id? | string | HTML id attribute for the component wrapper |
 | columns | TColumn[] | n/a |
 | rows | TTableRows | n/a |
-| theadOptions? | { `renderTheadCell?`: ( cellValue: string \| number, sortByTHeadColumnId?: TSortByTHeadColumnId ) => React.ReactNode \| string \| number } | n/a |
 | tbodyOptions | TRowsOptions | n/a |
 | otherOptions | TOtherOptions | n/a |
+| theadOptions? | { `renderTheadCell?`: ( cellValue: string \| number, sortByTHeadColumnId?: TSortByTHeadColumnId ) => React.ReactNode \| string \| number } | n/a |
 
 #### TableThemeProvider
 | Prop | Type | Description |
 |------|:----:|------------|
 | chidren | React.ReactNode | n/a |
 | styles? | TTableThemeProviderPropsStyles | n/a |
-
 
 
 ### Hooks
@@ -70,42 +64,47 @@ class App extends Component {
 #### TColumn
 | Prop | Type | Description |
 |------|:----:|------------|
-| table? | React.CSSProperties | n/a |
-| thead? | TReact.CSSProperties | n/a |
-| tbody? | RReact.CSSProperties | n/a |
-| cell? | React.CSSProperties | n/a |
+| id | number \| string | n/a |
+| renderTbodyCell? | (cellValue: any) => string | number | React.ReactNode | n/a |
+| minFractionOrWidth? | string | n/a |
+| maxFractionOrWidth? | string | n/a |
 
 #### TTableRows
 | Prop | Type | Description |
 |------|:----:|------------|
-| table? | React.CSSProperties | n/a |
-| thead? | TReact.CSSProperties | n/a |
-| tbody? | RReact.CSSProperties | n/a |
-| cell? | React.CSSProperties | n/a |
+| data? | TRow[] | n/a |
+| isLoading? | boolean | n/a |
+| error? | any | Any Error value thrown |
+
+#### TRow
+| Prop | Type | Description |
+|------|:----:|-------------|
+| id | number \| string | n/a |
+| [key: string] | any | ...rest |
 
 #### TSortByTHeadColumnId
 | Prop | Type | Description |
 |------|:----:|------------|
-| table? | React.CSSProperties | n/a |
-| thead? | TReact.CSSProperties | n/a |
-| tbody? | RReact.CSSProperties | n/a |
-| cell? | React.CSSProperties | n/a |
+| id? | string \| number \| null | n/a |
+| direction | 'asc' \| 'desc' \| null | n/a |
 
 #### TRowsOptions
 | Prop | Type | Description |
 |------|:----:|------------|
-| table? | React.CSSProperties | n/a |
-| thead? | TReact.CSSProperties | n/a |
-| tbody? | RReact.CSSProperties | n/a |
-| cell? | React.CSSProperties | n/a |
+| showNumbers? | boolean \| ((rowsNumber: number) => any) | n/a |
+| renderError? | (error: any) => string \| number \| React.ReactNode| n/a |
+| renderLoading? | () => string \| number \| React.ReactNode | n/a |
+| onRowClick? | (row: TRow) => void | n/a |
+
+
+   actionColumn?: 
+  showNumbers?: 
 
 #### TOtherOptions
 | Prop | Type | Description |
 |------|:----:|------------|
-| table? | React.CSSProperties | n/a |
-| thead? | TReact.CSSProperties | n/a |
-| tbody? | RReact.CSSProperties | n/a |
-| cell? | React.CSSProperties | n/a |
+| actionColumn? | { `renderTheadCell?`: (row: TRow) => string \| number \| React.ReactNode; `renderTbodyCell`: (row: TRow) => string \| number \| React.ReactNode; `columnWidth?`: string } | n/a |
+| showNumbers? | boolean \| ((rowsNumber: number) => any) | n/a |
 
 #### TTableThemeProviderPropsStyles
 | Prop | Type | Description |
