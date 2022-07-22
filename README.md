@@ -38,8 +38,14 @@ class App extends Component {
 
 ## API
 
-### Table
-### T
+### Components
+#### Table
+#### TableThemeProvider
+
+### Hooks
+#### useRows
+#### useThead
+
 
 ## License
 
