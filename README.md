@@ -38,13 +38,27 @@ class App extends Component {
 
 ## API
 
+rows: TTableRows
+  columns: TColumn[]
+  tbodyOptions?: TRowsOptions
+  theadOptions?: {
+    renderTheadCell?: (
+      cellValue: string | number,
+      sortByTHeadColumnId?: TSortByTHeadColumnId
+    ) => React.ReactNode | string | number
+  }
+  otherOptions?: TOtherOptions
+
 ### Components
 #### Table
-| Prop | Type/Default     | Description |
-|------|:----------------:|------------:|
-| col 1 is |  left-aligned | $1600 |
-| col 2 is |    centered   |   $12 |
-| col 3 is | right-aligned |    $1 |
+| Prop | Type | Description |
+|------|:----:|------------|
+| id? | string | HTML id attribute for the component wrapper |
+| columns | TColumn[] | n/a |
+| rows | TTableRows | n/a |
+| theadOptions? | renderTheadCell?: ( cellValue: string | number, sortByTHeadColumnId?: TSortByTHeadColumnId ) => React.ReactNode | string | number } | n/a |
+| tbodyOptions | TRowsOptions | n/a |
+| otherOptions | TOtherOptions | n/a |
 
 #### TableThemeProvider
 
