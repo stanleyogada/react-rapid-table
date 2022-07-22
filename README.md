@@ -36,6 +36,10 @@ class App extends Component {
 }
 ```
 
+## API
+
+### Components
+
 ## License
 
 MIT © [stanleyogada](https://github.com/stanleyogada)
