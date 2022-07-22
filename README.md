@@ -38,16 +38,10 @@ class App extends Component {
 
 ## API
 
-rows: TTableRows
-  columns: TColumn[]
-  tbodyOptions?: TRowsOptions
-  theadOptions?: {
-    renderTheadCell?: (
-      cellValue: string | number,
-      sortByTHeadColumnId?: TSortByTHeadColumnId
-    ) => React.ReactNode | string | number
-  }
-  otherOptions?: TOtherOptions
+  table?: React.CSSProperties
+  thead?: React.CSSProperties
+  tbody?: React.CSSProperties
+  cell?: React.CSSProperties
 
 ### Components
 #### Table
@@ -61,10 +55,65 @@ rows: TTableRows
 | otherOptions | TOtherOptions | n/a |
 
 #### TableThemeProvider
+| Prop | Type | Description |
+|------|:----:|------------|
+| chidren | React.ReactNode | n/a |
+| styles? | TTableThemeProviderPropsStyles | n/a |
+
+
 
 ### Hooks
 #### useRows
 #### useThead
+
+### Types
+#### TColumn
+| Prop | Type | Description |
+|------|:----:|------------|
+| table? | React.CSSProperties | n/a |
+| thead? | TReact.CSSProperties | n/a |
+| tbody? | RReact.CSSProperties | n/a |
+| cell? | React.CSSProperties | n/a |
+
+#### TTableRows
+| Prop | Type | Description |
+|------|:----:|------------|
+| table? | React.CSSProperties | n/a |
+| thead? | TReact.CSSProperties | n/a |
+| tbody? | RReact.CSSProperties | n/a |
+| cell? | React.CSSProperties | n/a |
+
+#### TSortByTHeadColumnId
+| Prop | Type | Description |
+|------|:----:|------------|
+| table? | React.CSSProperties | n/a |
+| thead? | TReact.CSSProperties | n/a |
+| tbody? | RReact.CSSProperties | n/a |
+| cell? | React.CSSProperties | n/a |
+
+#### TRowsOptions
+| Prop | Type | Description |
+|------|:----:|------------|
+| table? | React.CSSProperties | n/a |
+| thead? | TReact.CSSProperties | n/a |
+| tbody? | RReact.CSSProperties | n/a |
+| cell? | React.CSSProperties | n/a |
+
+#### TOtherOptions
+| Prop | Type | Description |
+|------|:----:|------------|
+| table? | React.CSSProperties | n/a |
+| thead? | TReact.CSSProperties | n/a |
+| tbody? | RReact.CSSProperties | n/a |
+| cell? | React.CSSProperties | n/a |
+
+#### TTableThemeProviderPropsStyles
+| Prop | Type | Description |
+|------|:----:|------------|
+| table? | React.CSSProperties | n/a |
+| thead? | TReact.CSSProperties | n/a |
+| tbody? | RReact.CSSProperties | n/a |
+| cell? | React.CSSProperties | n/a |
 
 
 ## License
