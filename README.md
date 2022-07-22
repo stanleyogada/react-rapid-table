@@ -56,7 +56,7 @@ rows: TTableRows
 | id? | string | HTML id attribute for the component wrapper |
 | columns | TColumn[] | n/a |
 | rows | TTableRows | n/a |
-| theadOptions? | renderTheadCell?: ( cellValue: string | number, sortByTHeadColumnId?: TSortByTHeadColumnId ) => React.ReactNode | string | number } | n/a |
+| theadOptions? | renderTheadCell?: ( cellValue: string \| number, sortByTHeadColumnId?: TSortByTHeadColumnId ) => React.ReactNode \| string \| number } | n/a |
 | tbodyOptions | TRowsOptions | n/a |
 | otherOptions | TOtherOptions | n/a |
 
