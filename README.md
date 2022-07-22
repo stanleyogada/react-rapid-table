@@ -38,7 +38,8 @@ class App extends Component {
 
 ## API
 
-### Components
+### Table
+### T
 
 ## License
 
