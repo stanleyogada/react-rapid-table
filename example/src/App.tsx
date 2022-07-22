@@ -1,13 +1,8 @@
 import React from 'react'
-import {
-  Table,
-  TRow,
-  TSortByTHeadColumnId,
-  useRows,
-  useThead,
-  TableThemeProvider
-} from 'react-rapid-table'
+import { Table, useRows, useThead, TableThemeProvider } from 'react-rapid-table'
+import type { TRow, TSortByTHeadColumnId } from 'react-rapid-table'
 import 'react-rapid-table/dist/index.css'
+
 import { getAllUsers, TUser } from './services/user'
 
 const App = () => {
