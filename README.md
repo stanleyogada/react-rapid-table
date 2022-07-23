@@ -68,12 +68,12 @@ class App extends Component {
 
 #### TColumn
 
-| Prop                |            Type            | Description |
-| ------------------- | :------------------------: | ----------- | --------------- | --- |
-| id                  |      number \| string      | n/a         |
-| renderTbodyCell?    | (cellValue: any) => string | number      | React.ReactNode | n/a |
-| minFractionOrWidth? |           string           | n/a         |
-| maxFractionOrWidth? |           string           | n/a         |
+| Prop                |                          Type                           | Description |
+| ------------------- | :-----------------------------------------------------: | ----------- |
+| id                  |                    number \| string                     | n/a         |
+| renderTbodyCell?    | (cellValue: any) => string \| number \| React.ReactNode | n/a         |
+| minFractionOrWidth? |                         string                          | n/a         |
+| maxFractionOrWidth? |                         string                          | n/a         |
 
 #### TTableRows
 
